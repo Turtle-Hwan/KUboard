@@ -10,7 +10,7 @@
 #define CHARACTER_X 16
 
 
-void console() {
+void consoleInfo() {	// 콘솔 창 제목과 크기 정하기
 	system("title 타자 연습 게임");
 	system("mode con: cols=150 lines=50");
 }
@@ -19,7 +19,7 @@ void consolePrint() {
 
 }
 
-void gotoXY(int x, int y) {
+void gotoXY(int x, int y) {		// 콘솔 창에 출력 위치
 	COORD Cur;
 	Cur.X = 2 * x;
 	Cur.Y = y;
@@ -104,10 +104,9 @@ void typeGame() {
 	}
 }
 
+
 int main() {
-	console();
-	
+	consoleInfo();
 	typeGame();
-	
 
 }
