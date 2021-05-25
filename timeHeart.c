@@ -1,6 +1,4 @@
-#include<stdio.h>
-#include<Windows.h>
-#include<string.h>
+﻿#include "header.h"
 
 #define REVEL1 15
 
@@ -52,6 +50,7 @@ void Heart(char str[30])
 	int b, i = 0; // i = 틀린 횟수
 	gotoxy(10, 0);
 	printf("♥ ♥ ♥ ♥ ♥");
+
 One:
 	gotoxy(3, 5);
 	printf("입력 : ");
@@ -96,8 +95,3 @@ One:
 	else
 		goto One;
 }   // 생명력   // Heart("문자열") -> 문자열이랑 다를 시 하트 깍임
-
-int main()
-{
-	Heart("hello");
-}

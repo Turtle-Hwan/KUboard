@@ -139,13 +139,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="timeHeart.c" />
     <ClCompile Include="findWord.c" />
-    <ClCompile Include="main.c">
+    <ClCompile Include="main.c" />
+    <ClCompile Include="rank.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="menu.c" />
+    <ClCompile Include="typingGame.c" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="enWords.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="header.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

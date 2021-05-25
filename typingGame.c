@@ -1,13 +1,12 @@
-﻿#include <stdio.h>
-#include <Windows.h>
-#include <stdbool.h>
+﻿#include "header.h"
 
-//#include <conio.h>
 #define GROUND_Y 33
-#define CHARACTER_Y 20
+
 #define OBSTACLE_Y 27
 
-#define CHARACTER_X 16
+#define CHARACTER_Y 19
+#define CHARACTER_X 17
+
 
 
 void consoleInfo() {	// 콘솔 창 제목과 크기 정하기
@@ -26,32 +25,97 @@ void gotoXY(int x, int y) {		// 콘솔 창에 출력 위치
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Cur);
 }
 
-void drawCharacter(int characterY, bool leg) {
+int selectCharacterNum;	//몇 번 캐릭터 선택했는지
+char C1[17][25] = {
+	"                \n",
+	"         $$$$$$ \n",
+	"       $$ $$$$$$\n",
+	"       $$$$$$$$$\n",
+	"$      $$$      \n",
+	"$$      $$$$$$$ \n",
+	"$$      $$$$$$$ \n",
+	"$$$   $$$$$$    \n",
+	" $$  $$$$$$$$$$$\n",
+	" $$$$$$$$$$$    \n",
+	"  $$$$$$$$$$    \n",
+	"    $$$$$$$$    \n",
+	"     $$$$$$     \n",
+	"     $    $     \n",
+	"     $$   $$    \n"
+
+};
+char C2[17][25] = {	//14줄
+	"    :.   ..   .:    \n",
+	"    | '- ;; -' |    \n",
+	" , -            - , \n",
+	"   :   !_  _!   :   \n",
+	"    :    --    :    \n",
+	"   : -        - :   \n",
+	"     -___  ___-     \n",
+	"    ,-:* KU *:-,    \n",
+	"   | :   ''   : |   \n",
+	"   | :        : |  ,\n",
+	"   (_ : -  - : _) ! \n",
+	"      :  ,,  :   !  \n",
+	"     _|  ,,  |_ !   \n",
+	"    !----!!----!    \n"
+};
+void drawCharacter1(int characterY, bool leg) {
+
+
+
+
 	gotoXY(0, characterY);
 
-	printf("        $$$$$$$ \n");
+	printf("                \n");
+	printf("         $$$$$$ \n");
 	printf("       $$ $$$$$$\n");
 	printf("       $$$$$$$$$\n");
 	printf("$      $$$      \n");
-	printf("$$     $$$$$$$  \n");
-	printf("$$$   $$$$$     \n");
-	printf(" $$  $$$$$$$$$$ \n");
+	printf("$$      $$$$$$$ \n");
+	printf("$$$   $$$$$$    \n");
+	printf(" $$  $$$$$$$$$$$\n");
 	printf(" $$$$$$$$$$$    \n");
 	printf("  $$$$$$$$$$    \n");
 	printf("    $$$$$$$$    \n");
 	printf("     $$$$$$     \n");
-	if (leg)
-	{
+	if (leg) {
 		printf("     $    $$$    \n");
 		printf("     $$          ");
-		leg = true;
 	}
-	else
-	{
+	else {
 		printf("     $$$  $     \n");
 		printf("          $$    ");
-		leg = false;
 	}
+}
+
+void drawCharacter2(int characterY, bool leg) {
+	gotoXY(0, characterY);
+
+	printf("    :.   ..   .:    \n");
+	printf("    | '- ;; -' |    \n");
+	printf(" , -            - , \n");
+	printf("   :   !_  _!   :   \n");
+	printf("    :    --    :    \n");
+	printf("   : -        - :   \n");
+	printf("     -___  ___-     \n");
+	printf("    ,-:* KU *:-,    \n");
+	printf("   | :   ''   : |   \n");
+	printf("   | :        : |  ,\n");
+	printf("   (_ : -  - : _) ! \n");
+	printf("      :  ,,  :   !  \n");
+	if (leg) {
+		printf("    !----!,  |_ !   \n");
+		printf("          !----!    ");
+	}
+	else {
+		printf("     _|  ,!----!   \n");
+		printf("    !----!          ");
+	}
+
+	//printf("     _|  ,,  |_ !  \n");
+	//printf("    !----!!----!    ");
+
 }
 
 void drawGround(int groundY) {
@@ -84,7 +148,8 @@ void typeGame() {
 	bool i = true;
 	while (1) {
 
-		drawCharacter(CHARACTER_Y, i);
+		drawCharacter1(CHARACTER_Y, i);
+
 		i = !i;
 
 		drawGround(GROUND_Y);
@@ -102,11 +167,4 @@ void typeGame() {
 		Sleep(1000);
 		system("cls");
 	}
-}
-
-
-int main() {
-	consoleInfo();
-	typeGame();
-
 }

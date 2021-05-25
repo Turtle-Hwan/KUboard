@@ -1,35 +1,212 @@
-#include <stdio.h>
+#include "header.h"
 
-int main() {
-	int num = 0, num2 = 0;
-	char ch = 0;
-	while (1) {
-		printf("**********************************\n");
-		printf("*         타자 연습 게임         *\n");
-		printf("**********************************\n");
-		printf("          1. 게임 시작\n");
-		printf("          2. 랭킹 확인\n");
-		printf("          3. 게임 종료\n");
-		scanf("%d", &num);
-
-		if (num == 1) {
-			printf("난이도를 선택하세요!\n");
-			printf("1. 상\n");
-			printf("2. 중\n");
-			printf("3. 하\n");
-			scanf("%d", &num2);
-			if (num == 1)
-				printf("난이도 상 게임 시작!\n");
-			else if (num == 2)
-				printf("난이도 중 게임 시작!\n");
-			else if (num == 3)
-				printf("난이도 하 게임 시작!\n");
+void keySelectBtn(int* currentCursorY, int n, int X, int Y, int d) { //키보드 방향키로 메뉴 선택하는 함수
+	// 현재 커서 Y위치 currentCursorY, 메뉴 개수 n, 1번 메뉴의 좌표 X, Y, 메뉴 간의 좌표 차 2
+	int code2;
+	code2 = _getch();
+	if (code2 == 72 || code2 == 75) {//위 방향키//왼쪽 방향키
+		if (*currentCursorY == Y) {
+			gotoxy(X, Y);
+			printf("  ");
+			*currentCursorY = Y + (n - 1) * d;
+			gotoxy(X, *currentCursorY);
+			printf("▶");
 		}
-		else if (num == 2) {
-			printf("랭킹 확인\n");
+		else {
+			gotoxy(X, *currentCursorY);
+			printf("  ");
+			*currentCursorY -= d;
+			gotoxy(X, *currentCursorY);
+			printf("▶");
 		}
-		else if (num == 3)
-			break;
 	}
-	return 0;
+	else if (code2 == 77 || code2 == 80) {//오른쪽 방향키//아래 방향키
+		if (*currentCursorY == Y + (n - 1) * d) {
+			gotoxy(X, *currentCursorY);
+			printf("  ");
+			*currentCursorY = Y;
+			gotoxy(X, *currentCursorY);
+			printf("▶");
+		}
+		else {
+			gotoxy(X, *currentCursorY);
+			printf("  ");
+			*currentCursorY += d;
+			gotoxy(X, *currentCursorY);
+			printf("▶");
+		}
+	}
+}
+
+void selectLevelMenu() {
+	system("cls");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
+	printf("****************************************\n"); //40칸
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
+	printf("*         난이도를 선택하세요          *\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
+	printf("****************************************\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11);
+	printf("             1. 상\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 9);
+	printf("             2. 중\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 7);
+	printf("             3. 하\n");	
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 5);
+	printf("             4. 돌아가기");
+
+	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11);
+	printf("▶");
+	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //현재 커서가 가리키는 메뉴의 y좌표 추가 값.
+	int* CMYp = &currentMenuY;
+	while (1) {
+		if (_kbhit()) {
+			code1 = _getch();
+			if (code1 == 224) {
+				keySelectBtn(CMYp, 4, CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11, 2);
+			}
+			else if (code1 == 13) {	//엔터 키 눌렸을 때
+				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//난이도 상
+
+				}
+				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//난이도 중
+
+					
+				}
+				else if (currentMenuY == CONSOLE_Y / 2 - 7) {	//난이도 하
+					
+				}
+				else    //돌아가기 버튼
+					break;
+			}
+		}
+	}
+}
+
+extern char C1[17][25], C2[17][25];
+extern int selectCharacterNum;
+void selectCharacterMenu() {
+	system("cls");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
+	printf("****************************************\n"); //40칸
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
+	printf("*         캐릭터를 선택하세요          *\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
+	printf("****************************************\n");
+
+
+	for (int i = 0; i < 14; i++) {
+		gotoxy(CONSOLE_X / 2 - 10, CONSOLE_Y / 2 - 11 + i);
+		printf("%s", C1[i]);
+
+		gotoxy(CONSOLE_X / 2 - 10, CONSOLE_Y / 2 + 5 + i);
+		printf("%s", C2[i]);
+	}
+
+	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11);
+	printf("▶");
+	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //현재 커서가 가리키는 메뉴의 y좌표 추가 값.
+	int* CMYp = &currentMenuY;
+	while (1) {
+		if (_kbhit()) {
+			code1 = _getch();
+			if (code1 == 224) {
+				keySelectBtn(CMYp, 2, CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11, 16);
+			}
+			else if (code1 == 13) {	//엔터 키 눌렸을 때
+				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//1번 공룡 캐릭
+					selectCharacterNum = 1;
+					break;
+				}
+				else if (currentMenuY == CONSOLE_Y / 2 + 5) {	//2번 쿠 캐릭
+					selectCharacterNum = 2;
+					break;
+				}
+			}
+		}
+	}
+}
+
+
+void rankingMenu() {
+	system("cls");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
+	printf("****************************************\n"); //40칸
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
+	printf("*               랭킹 기록              *\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
+	printf("****************************************\n");
+	
+	char rank[10][12] = { 0, };
+	checkRanking(rank);
+	
+	for (int i = 0; i < 10; i++) {
+		gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11 + i * 2);
+		if (strlen(rank[i]) != 0) {
+			printf("*              %s              *", rank[i]);
+		}
+		else {
+			printf("****************************************\n");
+		}
+
+	}
+
+	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 + 10);
+	printf("▶     돌아가기");
+	while (1) {
+		if (_kbhit() && _getch() == 13) {
+			break;
+		}
+	}
+
+}
+
+
+
+void mainMenu() {
+start:
+	system("cls");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
+	printf("****************************************\n"); //40칸
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
+	printf("*            타자 연습 게임            *\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
+	printf("****************************************\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11);
+	printf("             1. 게임 시작\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 9);
+	printf("             2. 랭킹 확인\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 7);
+	printf("             3. 게임 종료\n");
+
+	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11);
+	printf("▶");
+	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //현재 커서가 가리키는 메뉴의 y좌표 추가 값.
+	int* CMYp = &currentMenuY;
+	while (1) {
+		if (_kbhit()) {	//키보드가 눌렸다면 kbhit 1 반환.
+			code1 = _getch();
+			if (code1 == 224) {
+				keySelectBtn(CMYp, 3, CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11, 2);
+				
+			}
+			else if (code1 == 13) {	//엔터 키 눌렸을 때
+				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//메뉴 1 : 게임
+					//캐릭터 선택 메뉴
+					selectCharacterMenu();
+					//난이도 선택 메뉴
+					selectLevelMenu();
+					goto start;
+				}
+				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//메뉴 2 : 랭킹
+					rankingMenu();
+					//checkRanking(); -> 에서 받아온 랭킹 뿌려주기
+					goto start;
+				}
+				else if (currentMenuY == CONSOLE_Y / 2 - 7) {	//메뉴 3: 게임 종료
+					break;
+				}
+			}
+		}
+	}
 }
