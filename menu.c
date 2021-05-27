@@ -47,11 +47,11 @@ void selectLevelMenu() {
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
 	printf("****************************************\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11);
-	printf("             1. 상\n");
+	printf("             1. 고급\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 9);
-	printf("             2. 중\n");
+	printf("             2. 중급\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 7);
-	printf("             3. 하\n");	
+	printf("             3. 초급\n");	
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 5);
 	printf("             4. 돌아가기");
 
@@ -67,14 +67,13 @@ void selectLevelMenu() {
 			}
 			else if (code1 == 13) {	//엔터 키 눌렸을 때
 				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//난이도 상
-
+					typingGame(3);
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//난이도 중
-
-					
+					typingGame(2);
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 7) {	//난이도 하
-					
+					typingGame(1);
 				}
 				else    //돌아가기 버튼
 					break;
@@ -128,6 +127,20 @@ void selectCharacterMenu() {
 }
 
 
+void gameOverMenu() {
+	system("cls");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
+	printf("****************************************\n"); //40칸
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
+	printf("*               GAME OVER              *\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
+	printf("****************************************\n");
+
+	//점수 띄워주기
+	//이름 입력받기
+
+}
+
 void rankingMenu() {
 	system("cls");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
@@ -143,16 +156,16 @@ void rankingMenu() {
 	for (int i = 0; i < 10; i++) {
 		gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11 + i * 2);
 		if (strlen(rank[i]) != 0) {
-			printf("*              %s              *", rank[i]);
+			printf("***            %s            ***", rank[i]);
 		}
 		else {
-			printf("****************************************\n");
+			printf("***                                  ***\n");
 		}
 
 	}
 
 	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 + 10);
-	printf("▶     돌아가기");
+	printf("▶        돌아가기");
 	while (1) {
 		if (_kbhit() && _getch() == 13) {
 			break;
@@ -194,13 +207,12 @@ start:
 				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//메뉴 1 : 게임
 					//캐릭터 선택 메뉴
 					selectCharacterMenu();
-					//난이도 선택 메뉴
+					//난이도 선택 메뉴 + 게임 시작 | 난이도 선택 후 게임 시작됨.
 					selectLevelMenu();
 					goto start;
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//메뉴 2 : 랭킹
-					rankingMenu();
-					//checkRanking(); -> 에서 받아온 랭킹 뿌려주기
+					rankingMenu();	//랭킹 10개 까지만 화면 출력
 					goto start;
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 7) {	//메뉴 3: 게임 종료

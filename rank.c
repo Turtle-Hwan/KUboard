@@ -17,8 +17,7 @@ bool correct(const char* que) {
 
 void saveRanking(const char* name, const int score) { // 저장 양식 KIM 000150
 	FILE* fp = fopen("ranking.txt", "a");
-	fputs(name, fp);
-	fprintf(fp, " %06d", score);
+	fprintf(fp, "%3c %06d", name[0], score);
 	fputs("\n", fp);
 
 
@@ -26,12 +25,12 @@ void saveRanking(const char* name, const int score) { // 저장 양식 KIM 000150
 	fclose(fp);
 }
 
-void checkRanking(char ranking[][11]) { //랭킹 저장될 배열 (10위까지 저장)
+void checkRanking(char ranking[][12]) { //랭킹 저장될 배열 (10위까지 저장)
 	FILE* fp;
 	fp = fopen("ranking.txt", "a+");
 	
 	for (int i = 0; i < 10; i++) {
-		if (fgets(ranking[i], sizeof(ranking), fp) == NULL) {
+		if (fgets(ranking[i], 11, fp) == NULL) {
 			break;
 		}
 	}

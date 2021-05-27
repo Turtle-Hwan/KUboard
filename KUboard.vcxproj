@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="timeHeart.c" />
-    <ClCompile Include="findWord.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="rank.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
