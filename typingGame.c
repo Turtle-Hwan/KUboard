@@ -8,6 +8,7 @@
 #define CHARACTER_Y 19
 #define CHARACTER_X 17
 
+#define PICTURE_CHANGE_MSECOND 100	//화면 그림이 바뀌는 밀리초 : 100ms
 
 int selectCharacterNum;	//몇 번 캐릭터 선택했는지
 char C1[17][25] = {
@@ -194,24 +195,30 @@ void typingGame(int level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : �
 		gotoxy(65 + i, 41);
 		printf("~");
 	}
+
+	clock_t start, end;
+	start = clock(NULL);	//처음 시작하는 밀리초 저장
+	
 	while (1) {
-		
-		if (selectCharacterNum == 1) {
+		end = clock(NULL);	//while 돌 때마다 그 시각의 밀리초 저장
+
+		if (selectCharacterNum == 1 && end - start >= PICTURE_CHANGE_MSECOND) {
 			drawCharacter1(CHARACTER_Y, leg);
 			leg = !leg;
 		}
-		else {
+		else if (selectCharacterNum == 2 && end - start >= PICTURE_CHANGE_MSECOND) {
 			drawCharacter2(CHARACTER_Y, leg);
 			leg = !leg;
 		}
 
-		// 장애물 반복해서 그려주기 (speed_level) 만큼 앞으로 가서.
-		clearObstacle(obstacleX + speed_level, OBSTACLE_Y);
-		drawObstacle(obstacleX, OBSTACLE_Y);
-		
-		
+		if (end - start >= PICTURE_CHANGE_MSECOND) {	//100ms 마다 장애물 반복 그려주기
+			// 장애물 반복해서 그려주기 (speed_level) 만큼 앞으로 가서.
+			clearObstacle(obstacleX + speed_level, OBSTACLE_Y);
+			drawObstacle(obstacleX, OBSTACLE_Y);
+			obstacleX = obstacleX - speed_level;
 
-		obstacleX = obstacleX - speed_level;
+			start = clock(NULL);
+		}
 
 		//캐릭터랑 충돌했을 때 처리 / 하트 감소, 새로운 단어 출력
 		if (obstacleX <= CHARACTER_X) {	
@@ -275,11 +282,5 @@ void typingGame(int level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : �
 				}
 			}
 		}
-
-		Sleep(100);
 	}
-
-
-
-
 }
