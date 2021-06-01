@@ -142,9 +142,15 @@ void selectWord(int level, char* word) {	//enWords.txt에서 난이도별로 렌
 	}
 
 	FILE* fp = fopen("enWords.txt", "r");
-	for (int i = 1; i <= randomRow; i++) {
-		fgets(word, WORD_MAXLEN - 2, fp);
-		word[strlen(word) - 1] = '\0';
+	if (fp != NULL) {
+		for (int i = 1; i <= randomRow; i++) {
+			fgets(word, WORD_MAXLEN - 2, fp);
+			word[strlen(word) - 1] = '\0';
+		}
+	}
+	else {
+		system("cls");
+		printf("enWords.txt 파일이 없습니다.");
 	}
 	fclose(fp);
 }
