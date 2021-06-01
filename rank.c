@@ -18,7 +18,7 @@ bool correct(const char* que) {
 void sorting(const char* text) {
 	FILE* fp = fopen(text, "a");
 	fseek(fp, 0, SEEK_END);
-	int rank_length = ftell(fp);
+	int rank_length = ftell(fp); // ranking.txt 파일 크기 측정한 변수
 	char* nam = (char*)malloc(sizeof(char) * rank_length);
 	int* num = (int*)malloc(sizeof(int) * rank_length);
 	for (int i = 0; i < rank_length; i++) {
