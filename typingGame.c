@@ -8,7 +8,11 @@
 #define CHARACTER_Y 19
 #define CHARACTER_X 17
 
+#define LEVELUP_TIME 5000	//자동 레벨업 밀리초 : 5000ms == 5초
+
 #define PICTURE_CHANGE_MSECOND 100	//화면 그림이 바뀌는 밀리초 : 100ms
+
+
 
 int selectCharacterNum;	//몇 번 캐릭터 선택했는지
 char C1[17][25] = {
@@ -167,11 +171,11 @@ void selectWord(int level, char* word) {	//enWords.txt에서 난이도별로 렌
 	fclose(fp);
 }
 
-void typingGame(int level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : 상
+void typingGame(int *level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : 상
 	int obstacleX = OBSTACLE_START_X;	
 	bool leg = true;
 
-	const int speed_level = level;
+	int speed_level = *level;	//레벨에 따른 장애물 이동 속도
 
 	int crashNum = 0;				//장애물과 충돌했을 때 중가시킬 변수
 	int* crashNumP = &crashNum;
@@ -182,11 +186,11 @@ void typingGame(int level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : �
 	int idx = 0;							//사용자 입력받은 문자열 index
 	
 	char word[WORD_MAXLEN] = { 0, };
-	selectWord(level, word);
+	selectWord(*level, word);
 
 redraw:
 	system("cls"); 
-	drawHeart(crashNumP, level);
+	drawHeart(crashNumP, *level);
 	drawScore(score);
 	drawGround(GROUND_Y);	
 	drawWord(word);
@@ -196,28 +200,46 @@ redraw:
 		printf("~");
 	}
 
-	clock_t start, end;
-	start = clock(NULL);	//처음 시작하는 밀리초 저장
+	char currentLevel[3][10] = { "초급", "중급", "고급" };
+	gotoxy(60, 4);
+	printf("현재 난이도 : %s", currentLevel[(*level) - 1]);
+
+	clock_t loop_start, loop_end, start, end;
+	start = clock(NULL);		//level 자동 상승에 사용할 시간 값.
+	loop_start = clock(NULL);	//while 돌 때마다 밀리초 처음 값 저장
 	
 	while (1) {
-		end = clock(NULL);	//while 돌 때마다 그 시각의 밀리초 저장
+		loop_end = clock(NULL);	//while 돌 때마다 밀리초 나중 값 저장	//loop_start와 비교 후 100ms마다 장애물 이동
 
-		if (selectCharacterNum == 1 && end - start >= PICTURE_CHANGE_MSECOND) {
+		//일정 시간동안 게임오버 안 되면 난이도 상승!
+		if (*level <= 2) {
+			end = clock(NULL);
+			if (end - start >= LEVELUP_TIME) {
+				(*level) += 1;
+				speed_level = *level;
+				start = clock(NULL);
+
+				gotoxy(55, 4);
+				printf("%d초간 게임 성공!! 난이도가 %s으로 변경됩니다.", LEVELUP_TIME / 1000, currentLevel[(*level) - 1]);
+			}
+		}
+
+		if (selectCharacterNum == 1 && loop_end - loop_start >= PICTURE_CHANGE_MSECOND) {
 			drawCharacter1(CHARACTER_Y, leg);
 			leg = !leg;
 		}
-		else if (selectCharacterNum == 2 && end - start >= PICTURE_CHANGE_MSECOND) {
+		else if (selectCharacterNum == 2 && loop_end - loop_start >= PICTURE_CHANGE_MSECOND) {
 			drawCharacter2(CHARACTER_Y, leg);
 			leg = !leg;
 		}
 
-		if (end - start >= PICTURE_CHANGE_MSECOND) {	//100ms 마다 장애물 반복 그려주기
+		if (loop_end - loop_start >= PICTURE_CHANGE_MSECOND) {	//100ms 마다 장애물 반복 그려주기
 			// 장애물 반복해서 그려주기 (speed_level) 만큼 앞으로 가서.
 			clearObstacle(obstacleX + speed_level, OBSTACLE_Y);
 			drawObstacle(obstacleX, OBSTACLE_Y);
 			obstacleX = obstacleX - speed_level;
 
-			start = clock(NULL);
+			loop_start = clock(NULL);
 		}
 
 		//캐릭터랑 충돌했을 때 처리 / 하트 감소, 새로운 단어 출력
@@ -226,8 +248,8 @@ redraw:
 			obstacleX = OBSTACLE_START_X;
 			crashNum += 1;
 
-			drawHeart(crashNumP, level);	//하트 감소
-			selectWord(level, word);
+			drawHeart(crashNumP, *level);	//하트 감소
+			selectWord(*level, word);
 			drawWord(word);
 		}
 
@@ -238,9 +260,9 @@ redraw:
 			if (ch == 13) {				//엔터
 				//일치하는지 판단 & 점수 증가
 				if (!strcmp(word, inputWord)) {	// 같을 때  //strcmp : 같으면 0 반환
-					score += 10 * level;
+					score += 10 * (*level);
 					drawScore(score);	//score 반영						
-					selectWord(level, word);	//새 단어 선택   || 제일 긴 단어 테스트 /strcpy(word, "artificial neural network\0");
+					selectWord(*level, word);	//새 단어 선택   || 제일 긴 단어 테스트 /strcpy(word, "artificial neural network\0");
 					drawWord(word);
 
 					//장애물 맨 뒤로 보내기

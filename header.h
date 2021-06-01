@@ -22,7 +22,7 @@ void checkRanking(char ranking[][12]);	//rank.c에 정의, menu.c -> rankingMenu() 
 
 
 
-void typingGame(int level); //typingGame.c에 정의, menu -> selectLevelMenu() 에서 사용
+void typingGame(int *level); //typingGame.c에 정의, menu -> selectLevelMenu() 에서 사용
 void drawHeart(int* i, int level); //timeHeart.c 정의 , typingGame()에 사용
 
 

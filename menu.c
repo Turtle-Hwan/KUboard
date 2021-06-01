@@ -59,6 +59,9 @@ void selectLevelMenu() {
 	printf("▶");
 	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //현재 커서가 가리키는 메뉴의 y좌표 추가 값.
 	int* CMYp = &currentMenuY;
+
+	int level = 1; //레벨 설정 값.
+	int* levelP = &level; //레벨 변수의 포인터
 	while (1) {
 		if (_kbhit()) {
 			code1 = _getch();
@@ -67,15 +70,18 @@ void selectLevelMenu() {
 			}
 			else if (code1 == 13) {	//엔터 키 눌렸을 때
 				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//난이도 상
-					typingGame(3);
+					level = 3;
+					typingGame(levelP);
 					break;
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//난이도 중
-					typingGame(2);
+					level = 2;
+					typingGame(levelP);
 					break;
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 7) {	//난이도 하
-					typingGame(1);
+					level = 1;
+					typingGame(levelP);
 					break;
 				}
 				else    //돌아가기 버튼
