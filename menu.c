@@ -1,7 +1,7 @@
 #include "header.h"
 
 void keySelectBtn(int* currentCursorY, int n, int X, int Y, int d) { //키보드 방향키로 메뉴 선택하는 함수
-	// 현재 커서 Y위치 currentCursorY, 메뉴 개수 n, 1번 메뉴의 좌표 X, Y, 메뉴 간의 좌표 차 2
+	// 현재 커서 Y위치 currentCursorY, 메뉴 개수 n, 1번 메뉴의 좌표 X, Y, 메뉴 간의 좌표 차 d
 	int code2;
 	code2 = _getch();
 	if (code2 == 72 || code2 == 75) {//위 방향키//왼쪽 방향키
@@ -68,12 +68,15 @@ void selectLevelMenu() {
 			else if (code1 == 13) {	//엔터 키 눌렸을 때
 				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//난이도 상
 					typingGame(3);
+					break;
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//난이도 중
 					typingGame(2);
+					break;
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 7) {	//난이도 하
 					typingGame(1);
+					break;
 				}
 				else    //돌아가기 버튼
 					break;
@@ -173,6 +176,45 @@ void rankingMenu() {
 	}
 
 }
+
+
+void pauseMenu(int* menu) {	// 게임 도중 esc 키 눌렀을 때 일시정지 화면
+	system("cls");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
+	printf("****************************************\n"); //40칸
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
+	printf("*              일시 정지               *\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
+	printf("****************************************\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 9);
+	printf("         1. 게임으로 돌아가기\n");
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 5);
+	printf("         2. 메인 화면으로 가기\n");
+
+	gotoxy(CONSOLE_X / 2 - 17, CONSOLE_Y / 2 - 9);
+	printf("▶");
+	int code1, currentMenuY = CONSOLE_Y / 2 - 9; //현재 커서가 가리키는 메뉴의 y좌표 추가 값.
+	int* CMYp = &currentMenuY;
+	while (1) {
+		if (_kbhit()) {
+			code1 = _getch();
+			if (code1 == 224) {
+				keySelectBtn(CMYp, 2, CONSOLE_X / 2 - 17, CONSOLE_Y / 2 - 9, 4);
+			}
+			else if (code1 == 13) {	//엔터 키 눌렸을 때
+				if (currentMenuY == CONSOLE_Y / 2 - 9) {	// 1. 게임으로 돌아가기
+					*menu = 1;
+					break;
+				}
+				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	// 2. 메인 화면으로 가기
+					*menu = 2;
+					break;
+				}
+			}
+		}
+	}
+}
+
 
 
 

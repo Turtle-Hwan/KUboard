@@ -184,7 +184,7 @@ void typingGame(int level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : �
 	char word[WORD_MAXLEN] = { 0, };
 	selectWord(level, word);
 
-
+redraw:
 	system("cls"); 
 	drawHeart(crashNumP, level);
 	drawScore(score);
@@ -279,6 +279,17 @@ void typingGame(int level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : �
 					gotoxy(65, 40);
 					printf("%s", inputWord);
 					idx = WORD_MAXLEN - 2;
+				}
+			}
+			else if (ch == 27) { // esc 키 : 일시정지 메뉴 띄우기
+				int menu = 0;
+				int* menuP = &menu;
+				pauseMenu(menuP);	// menu포인터를 받아서, menu 변수에 pauseMenu에서 선택된 메뉴 번호를 반환.
+				if (menu == 1) {
+					goto redraw;	//게임으로 되돌아가기
+				}
+				else if (menu == 2) {
+					break;		//메인메뉴
 				}
 			}
 		}
