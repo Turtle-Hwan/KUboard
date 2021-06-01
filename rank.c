@@ -8,24 +8,38 @@ bool correct(const char* que) {
 	gets_s(arr, MAX);
 	int a = strcmp(que, arr);
 	if (a == 0) {
-		return 1; // µÎ¹®ÀÚ°¡ ÀÏÄ¡ÇÒ ¶§
+		return 1; // ë‘ë¬¸ìê°€ ì¼ì¹˜í•  ë•Œ
 	}
 	else {
 		return 0;
 	}
 }
 
-void saveRanking(const char* name, const int score) { // ÀúÀå ¾ç½Ä KIM 000150
+void sorting(const char* text) {
+	FILE* fp = fopen(text, "a");
+	fseek(fp, 0, SEEK_END);
+	int rank_length = ftell(fp);
+	char* nam = (char*)malloc(sizeof(char) * rank_length);
+	int* num = (int*)malloc(sizeof(int) * rank_length);
+	for (int i = 0; i < rank_length; i++) {
+		fgets(nam,3,fp);
+		fgets(num, 6, fp);
+	}
+
+	fclose(fp);
+}
+
+void saveRanking(const char* name, const int score) { // ì €ì¥ ì–‘ì‹ KIM 000150
 	FILE* fp = fopen("ranking.txt", "a");
 	fprintf(fp, "%3c %06d", name[0], score);
 	fputs("\n", fp);
 
 
-	// ¼øÀ§¿¡ ¸ÂÃß¾î Á¤·ÄÇÏ´Â ºÎºĞ Ãß°¡
+	// ìˆœìœ„ì— ë§ì¶”ì–´ ì •ë ¬í•˜ëŠ” ë¶€ë¶„ ì¶”ê°€
 	fclose(fp);
 }
 
-void checkRanking(char ranking[][12]) { //·©Å· ÀúÀåµÉ ¹è¿­ (10À§±îÁö ÀúÀå)
+void checkRanking(char ranking[][12]) { //ë­í‚¹ ì €ì¥ë  ë°°ì—´ (10ìœ„ê¹Œì§€ ì €ì¥)
 	FILE* fp;
 	fp = fopen("ranking.txt", "a+");
 	
