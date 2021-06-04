@@ -24,7 +24,7 @@ bool correct(const char* que) {
 	gets_s(arr, MAX);
 	int a = strcmp(que, arr);
 	if (a == 0) {
-		return 1; // ë‘ë¬¸ìê°€ ì¼ì¹˜í•  ë•Œ
+		return 1; // µÎ¹®ÀÚ°¡ ÀÏÄ¡ÇÒ ¶§
 	}
 	else {
 		return 0;
@@ -39,12 +39,12 @@ void sorting(const char* text, int count) {
 	user* u = (user*)malloc(sizeof(user) * count);
 	while (!feof(fp)) {
 		int i = 0;
-		fgets(wt, 10, fp); // ë¶€ë¶„ ë¯¸ì™„ì„±
+		fgets(wt, 10, fp); // ºÎºĞ ¹Ì¿Ï¼º
 	}
 	fclose(fp);
 }
 
-void saveRanking(const char* name, const int score) { // ì €ì¥ ì–‘ì‹ KIM 000150
+void saveRanking(const char* name, const int score) { // ÀúÀå ¾ç½Ä KIM 000150
 	FILE* fp = fopen("ranking.txt", "a");
 	fprintf(fp, "%3s %6d", name, score);
 	fputs("\n", fp);
@@ -54,7 +54,7 @@ void saveRanking(const char* name, const int score) { // ì €ì¥ ì–‘ì‹ KIM 00015
 	sorting("ranking.txt", count);
 }
 
-void checkRanking(char ranking[][12]) { //ë­í‚¹ ì €ì¥ë  ë°°ì—´ (10ìœ„ê¹Œì§€ ì €ì¥)
+void checkRanking(char ranking[][12]) { //·©Å· ÀúÀåµÉ ¹è¿­ (10À§±îÁö ÀúÀå)
 	FILE* fp;
 	fp = fopen("ranking.txt", "a+");
 	

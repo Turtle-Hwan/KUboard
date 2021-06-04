@@ -1,39 +1,39 @@
 #include "header.h"
 
-void keySelectBtn(int* currentCursorY, int n, int X, int Y, int d) { //í‚¤ë³´ë“œ ë°©í–¥í‚¤ë¡œ ë©”ë‰´ ì„ íƒí•˜ëŠ” í•¨ìˆ˜
-	// í˜„ì¬ ì»¤ì„œ Yìœ„ì¹˜ currentCursorY, ë©”ë‰´ ê°œìˆ˜ n, 1ë²ˆ ë©”ë‰´ì˜ ì¢Œí‘œ X, Y, ë©”ë‰´ ê°„ì˜ ì¢Œí‘œ ì°¨ d
+void keySelectBtn(int* currentCursorY, int n, int X, int Y, int d) { //Å°º¸µå ¹æÇâÅ°·Î ¸Ş´º ¼±ÅÃÇÏ´Â ÇÔ¼ö
+	// ÇöÀç Ä¿¼­ YÀ§Ä¡ currentCursorY, ¸Ş´º °³¼ö n, 1¹ø ¸Ş´ºÀÇ ÁÂÇ¥ X, Y, ¸Ş´º °£ÀÇ ÁÂÇ¥ Â÷ d
 	int code2;
 	code2 = _getch();
-	if (code2 == 72 || code2 == 75) {//ìœ„ ë°©í–¥í‚¤//ì™¼ìª½ ë°©í–¥í‚¤
+	if (code2 == 72 || code2 == 75) {//À§ ¹æÇâÅ°//¿ŞÂÊ ¹æÇâÅ°
 		if (*currentCursorY == Y) {
 			gotoxy(X, Y);
 			printf("  ");
 			*currentCursorY = Y + (n - 1) * d;
 			gotoxy(X, *currentCursorY);
-			printf("â–¶");
+			printf("¢º");
 		}
 		else {
 			gotoxy(X, *currentCursorY);
 			printf("  ");
 			*currentCursorY -= d;
 			gotoxy(X, *currentCursorY);
-			printf("â–¶");
+			printf("¢º");
 		}
 	}
-	else if (code2 == 77 || code2 == 80) {//ì˜¤ë¥¸ìª½ ë°©í–¥í‚¤//ì•„ë˜ ë°©í–¥í‚¤
+	else if (code2 == 77 || code2 == 80) {//¿À¸¥ÂÊ ¹æÇâÅ°//¾Æ·¡ ¹æÇâÅ°
 		if (*currentCursorY == Y + (n - 1) * d) {
 			gotoxy(X, *currentCursorY);
 			printf("  ");
 			*currentCursorY = Y;
 			gotoxy(X, *currentCursorY);
-			printf("â–¶");
+			printf("¢º");
 		}
 		else {
 			gotoxy(X, *currentCursorY);
 			printf("  ");
 			*currentCursorY += d;
 			gotoxy(X, *currentCursorY);
-			printf("â–¶");
+			printf("¢º");
 		}
 	}
 }
@@ -41,50 +41,50 @@ void keySelectBtn(int* currentCursorY, int n, int X, int Y, int d) { //í‚¤ë³´ë“œ
 void selectLevelMenu() {
 	system("cls");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
-	printf("****************************************\n"); //40ì¹¸
+	printf("****************************************\n"); //40Ä­
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
-	printf("*         ë‚œì´ë„ë¥¼ ì„ íƒí•˜ì„¸ìš”          *\n");
+	printf("*         ³­ÀÌµµ¸¦ ¼±ÅÃÇÏ¼¼¿ä          *\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
 	printf("****************************************\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11);
-	printf("             1. ê³ ê¸‰\n");
+	printf("             1. °í±Ş\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 9);
-	printf("             2. ì¤‘ê¸‰\n");
+	printf("             2. Áß±Ş\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 7);
-	printf("             3. ì´ˆê¸‰\n");
+	printf("             3. ÃÊ±Ş\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 5);
-	printf("             4. ëŒì•„ê°€ê¸°");
+	printf("             4. µ¹¾Æ°¡±â");
 
 	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11);
-	printf("â–¶");
-	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //í˜„ì¬ ì»¤ì„œê°€ ê°€ë¦¬í‚¤ëŠ” ë©”ë‰´ì˜ yì¢Œí‘œ ì¶”ê°€ ê°’.
+	printf("¢º");
+	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //ÇöÀç Ä¿¼­°¡ °¡¸®Å°´Â ¸Ş´ºÀÇ yÁÂÇ¥ Ãß°¡ °ª.
 	int* CMYp = &currentMenuY;
 
-	int level = 1; //ë ˆë²¨ ì„¤ì • ê°’.
-	int* levelP = &level; //ë ˆë²¨ ë³€ìˆ˜ì˜ í¬ì¸í„°
+	int level = 1; //·¹º§ ¼³Á¤ °ª.
+	int* levelP = &level; //·¹º§ º¯¼öÀÇ Æ÷ÀÎÅÍ
 	while (1) {
 		if (_kbhit()) {
 			code1 = _getch();
 			if (code1 == 224) {
 				keySelectBtn(CMYp, 4, CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11, 2);
 			}
-			else if (code1 == 13) {	//ì—”í„° í‚¤ ëˆŒë ¸ì„ ë•Œ
-				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//ë‚œì´ë„ ìƒ
+			else if (code1 == 13) {	//¿£ÅÍ Å° ´­·ÈÀ» ¶§
+				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//³­ÀÌµµ »ó
 					level = 3;
 					typingGame(levelP);
 					break;
 				}
-				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//ë‚œì´ë„ ì¤‘
+				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//³­ÀÌµµ Áß
 					level = 2;
 					typingGame(levelP);
 					break;
 				}
-				else if (currentMenuY == CONSOLE_Y / 2 - 7) {	//ë‚œì´ë„ í•˜
+				else if (currentMenuY == CONSOLE_Y / 2 - 7) {	//³­ÀÌµµ ÇÏ
 					level = 1;
 					typingGame(levelP);
 					break;
 				}
-				else    //ëŒì•„ê°€ê¸° ë²„íŠ¼
+				else    //µ¹¾Æ°¡±â ¹öÆ°
 					break;
 			}
 		}
@@ -96,9 +96,9 @@ extern int selectCharacterNum;
 void selectCharacterMenu() {
 	system("cls");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
-	printf("****************************************\n"); //40ì¹¸
+	printf("****************************************\n"); //40Ä­
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
-	printf("*         ìºë¦­í„°ë¥¼ ì„ íƒí•˜ì„¸ìš”          *\n");
+	printf("*         Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇÏ¼¼¿ä          *\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
 	printf("****************************************\n");
 
@@ -112,8 +112,8 @@ void selectCharacterMenu() {
 	}
 
 	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11);
-	printf("â–¶");
-	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //í˜„ì¬ ì»¤ì„œê°€ ê°€ë¦¬í‚¤ëŠ” ë©”ë‰´ì˜ yì¢Œí‘œ ì¶”ê°€ ê°’.
+	printf("¢º");
+	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //ÇöÀç Ä¿¼­°¡ °¡¸®Å°´Â ¸Ş´ºÀÇ yÁÂÇ¥ Ãß°¡ °ª.
 	int* CMYp = &currentMenuY;
 	while (1) {
 		if (_kbhit()) {
@@ -121,12 +121,12 @@ void selectCharacterMenu() {
 			if (code1 == 224) {
 				keySelectBtn(CMYp, 2, CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11, 16);
 			}
-			else if (code1 == 13) {	//ì—”í„° í‚¤ ëˆŒë ¸ì„ ë•Œ
-				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//1ë²ˆ ê³µë£¡ ìºë¦­
+			else if (code1 == 13) {	//¿£ÅÍ Å° ´­·ÈÀ» ¶§
+				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//1¹ø °ø·æ Ä³¸¯
 					selectCharacterNum = 1;
 					break;
 				}
-				else if (currentMenuY == CONSOLE_Y / 2 + 5) {	//2ë²ˆ ì¿  ìºë¦­
+				else if (currentMenuY == CONSOLE_Y / 2 + 5) {	//2¹ø Äí Ä³¸¯
 					selectCharacterNum = 2;
 					break;
 				}
@@ -139,23 +139,23 @@ void selectCharacterMenu() {
 void gameOverMenu() {
 	system("cls");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
-	printf("****************************************\n"); //40ì¹¸
+	printf("****************************************\n"); //40Ä­
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
 	printf("*               GAME OVER              *\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
 	printf("****************************************\n");
 
-	//ì ìˆ˜ ë„ì›Œì£¼ê¸°
-	//ì´ë¦„ ì…ë ¥ë°›ê¸°
+	//Á¡¼ö ¶ç¿öÁÖ±â
+	//ÀÌ¸§ ÀÔ·Â¹Ş±â
 
 }
 
 void rankingMenu() {
 	system("cls");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
-	printf("****************************************\n"); //40ì¹¸
+	printf("****************************************\n"); //40Ä­
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
-	printf("*               ë­í‚¹ ê¸°ë¡              *\n");
+	printf("*               ·©Å· ±â·Ï              *\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
 	printf("****************************************\n");
 
@@ -174,7 +174,7 @@ void rankingMenu() {
 	}
 
 	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 + 10);
-	printf("â–¶        ëŒì•„ê°€ê¸°");
+	printf("¢º        µ¹¾Æ°¡±â");
 	while (1) {
 		if (_kbhit() && _getch() == 13) {
 			break;
@@ -184,22 +184,22 @@ void rankingMenu() {
 }
 
 
-void pauseMenu(int* menu) {	// ê²Œì„ ë„ì¤‘ esc í‚¤ ëˆŒë €ì„ ë•Œ ì¼ì‹œì •ì§€ í™”ë©´
+void pauseMenu(int* menu) {	// °ÔÀÓ µµÁß esc Å° ´­·¶À» ¶§ ÀÏ½ÃÁ¤Áö È­¸é
 	system("cls");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
-	printf("****************************************\n"); //40ì¹¸
+	printf("****************************************\n"); //40Ä­
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
-	printf("*              ì¼ì‹œ ì •ì§€               *\n");
+	printf("*              ÀÏ½Ã Á¤Áö               *\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
 	printf("****************************************\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 9);
-	printf("         1. ê²Œì„ìœ¼ë¡œ ëŒì•„ê°€ê¸°\n");
+	printf("         1. °ÔÀÓÀ¸·Î µ¹¾Æ°¡±â\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 5);
-	printf("         2. ë©”ì¸ í™”ë©´ìœ¼ë¡œ ê°€ê¸°\n");
+	printf("         2. ¸ŞÀÎ È­¸éÀ¸·Î °¡±â\n");
 
 	gotoxy(CONSOLE_X / 2 - 17, CONSOLE_Y / 2 - 9);
-	printf("â–¶");
-	int code1, currentMenuY = CONSOLE_Y / 2 - 9; //í˜„ì¬ ì»¤ì„œê°€ ê°€ë¦¬í‚¤ëŠ” ë©”ë‰´ì˜ yì¢Œí‘œ ì¶”ê°€ ê°’.
+	printf("¢º");
+	int code1, currentMenuY = CONSOLE_Y / 2 - 9; //ÇöÀç Ä¿¼­°¡ °¡¸®Å°´Â ¸Ş´ºÀÇ yÁÂÇ¥ Ãß°¡ °ª.
 	int* CMYp = &currentMenuY;
 	while (1) {
 		if (_kbhit()) {
@@ -207,12 +207,12 @@ void pauseMenu(int* menu) {	// ê²Œì„ ë„ì¤‘ esc í‚¤ ëˆŒë €ì„ ë•Œ ì¼ì‹œì •ì§€ 
 			if (code1 == 224) {
 				keySelectBtn(CMYp, 2, CONSOLE_X / 2 - 17, CONSOLE_Y / 2 - 9, 4);
 			}
-			else if (code1 == 13) {	//ì—”í„° í‚¤ ëˆŒë ¸ì„ ë•Œ
-				if (currentMenuY == CONSOLE_Y / 2 - 9) {	// 1. ê²Œì„ìœ¼ë¡œ ëŒì•„ê°€ê¸°
+			else if (code1 == 13) {	//¿£ÅÍ Å° ´­·ÈÀ» ¶§
+				if (currentMenuY == CONSOLE_Y / 2 - 9) {	// 1. °ÔÀÓÀ¸·Î µ¹¾Æ°¡±â
 					*menu = 1;
 					break;
 				}
-				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	// 2. ë©”ì¸ í™”ë©´ìœ¼ë¡œ ê°€ê¸°
+				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	// 2. ¸ŞÀÎ È­¸éÀ¸·Î °¡±â
 					*menu = 2;
 					break;
 				}
@@ -228,41 +228,41 @@ void mainMenu() {
 start:
 	system("cls");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
-	printf("****************************************\n"); //40ì¹¸
+	printf("****************************************\n"); //40Ä­
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 15);
-	printf("*            íƒ€ì ì—°ìŠµ ê²Œì„            *\n");
+	printf("*            Å¸ÀÚ ¿¬½À °ÔÀÓ            *\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 13);
 	printf("****************************************\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11);
-	printf("             1. ê²Œì„ ì‹œì‘\n");
+	printf("             1. °ÔÀÓ ½ÃÀÛ\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 9);
-	printf("             2. ë­í‚¹ í™•ì¸\n");
+	printf("             2. ·©Å· È®ÀÎ\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 7);
-	printf("             3. ì•„ì´í…œ ì„¤ëª…\n");
+	printf("             3. ¾ÆÀÌÅÛ ¼³¸í\n");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 5);
-	printf("             4. ê²Œì„ì¢…ë£Œ\n");
+	printf("             4. °ÔÀÓÁ¾·á\n");
 
 	gotoxy(CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11);
-	printf("â–¶");
-	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //í˜„ì¬ ì»¤ì„œê°€ ê°€ë¦¬í‚¤ëŠ” ë©”ë‰´ì˜ yì¢Œí‘œ ì¶”ê°€ ê°’.
+	printf("¢º");
+	int code1, currentMenuY = CONSOLE_Y / 2 - 11; //ÇöÀç Ä¿¼­°¡ °¡¸®Å°´Â ¸Ş´ºÀÇ yÁÂÇ¥ Ãß°¡ °ª.
 	int* CMYp = &currentMenuY;
 	while (1) {
-		if (_kbhit()) {	//í‚¤ë³´ë“œê°€ ëˆŒë ¸ë‹¤ë©´ kbhit 1 ë°˜í™˜.
+		if (_kbhit()) {	//Å°º¸µå°¡ ´­·È´Ù¸é kbhit 1 ¹İÈ¯.
 			code1 = _getch();
 			if (code1 == 224) {
 				keySelectBtn(CMYp, 4, CONSOLE_X / 2 - 14, CONSOLE_Y / 2 - 11, 2);
 
 			}
-			else if (code1 == 13) {	//ì—”í„° í‚¤ ëˆŒë ¸ì„ ë•Œ
-				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//ë©”ë‰´ 1 : ê²Œì„
-					//ìºë¦­í„° ì„ íƒ ë©”ë‰´
+			else if (code1 == 13) {	//¿£ÅÍ Å° ´­·ÈÀ» ¶§
+				if (currentMenuY == CONSOLE_Y / 2 - 11) {	//¸Ş´º 1 : °ÔÀÓ
+					//Ä³¸¯ÅÍ ¼±ÅÃ ¸Ş´º
 					selectCharacterMenu();
-					//ë‚œì´ë„ ì„ íƒ ë©”ë‰´ + ê²Œì„ ì‹œì‘ | ë‚œì´ë„ ì„ íƒ í›„ ê²Œì„ ì‹œì‘ë¨.
+					//³­ÀÌµµ ¼±ÅÃ ¸Ş´º + °ÔÀÓ ½ÃÀÛ | ³­ÀÌµµ ¼±ÅÃ ÈÄ °ÔÀÓ ½ÃÀÛµÊ.
 					selectLevelMenu();
 					goto start;
 				}
-				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//ë©”ë‰´ 2 : ë­í‚¹
-					rankingMenu();	//ë­í‚¹ 10ê°œ ê¹Œì§€ë§Œ í™”ë©´ ì¶œë ¥
+				else if (currentMenuY == CONSOLE_Y / 2 - 9) {	//¸Ş´º 2 : ·©Å·
+					rankingMenu();	//·©Å· 10°³ ±îÁö¸¸ È­¸é Ãâ·Â
 					goto start;
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 7)
@@ -270,7 +270,7 @@ start:
 					itemExplain();
 					goto start;
 				}
-				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	//ë©”ë‰´ 3: ê²Œì„ ì¢…ë£Œ
+				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	//¸Ş´º 3: °ÔÀÓ Á¾·á
 					break;
 				}
 			}

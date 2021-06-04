@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gameOver.c" />
+    <ClCompile Include="item.c" />
     <ClCompile Include="timeHeart.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="rank.c">
@@ -156,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="bgm.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

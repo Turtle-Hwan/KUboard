@@ -30,6 +30,12 @@
     <ClCompile Include="timeHeart.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="gameOver.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="item.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="enWords.txt">
@@ -48,5 +54,10 @@
     <ClInclude Include="header.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="bgm.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
   </ItemGroup>
 </Project>

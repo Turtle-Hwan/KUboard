@@ -1,12 +1,12 @@
 #include "header.h"
 
-void consoleInfo() {	// ì½˜ì†” ì°½ ì œëª©ê³¼ í¬ê¸° ì •í•˜ê¸°
-	system("title íƒ€ìž ì—°ìŠµ ê²Œìž„_(Cí”„ë¡œê·¸ëž˜ë°) 4ì¡° ê¹€ì§€í™˜, ê³ ì˜ë¹ˆ, ë‚˜ì˜ˆë‹´, ê¹€í˜„ì§€");
+void consoleInfo() {	// ÄÜ¼Ö Ã¢ Á¦¸ñ°ú Å©±â Á¤ÇÏ±â
+	system("title Å¸ÀÚ ¿¬½À °ÔÀÓ_(CÇÁ·Î±×·¡¹Ö) 4Á¶ ±èÁöÈ¯, °í¿µºó, ³ª¿¹´ã, ±èÇöÁö");
 	system("mode con: cols=150 lines=50");
 }
 
 int main() {
-	// SetConsoleOutputCP(949); // í˜¹ì‹œ ì½˜ì†” í•œê¸€ ê¸€ì”¨ê°€ ê¹¨ì§„ë‹¤ë©´ ì‹¤í–‰í•  êµ¬ë¬¸
+	// SetConsoleOutputCP(949); // È¤½Ã ÄÜ¼Ö³»ÀÇ ÇÑ±Û ±Û¾¾°¡ ±úÁø´Ù¸é ½ÇÇàÇÒ ±¸¹®
 
 	PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC | SND_LOOP | SND_SYSTEM);
 	consoleInfo();
