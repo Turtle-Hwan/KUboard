@@ -8,13 +8,15 @@
 #define CHARACTER_Y 19
 #define CHARACTER_X 17
 
-#define LEVELUP_TIME 60000	//자동 레벨업 밀리초 : 5000ms == 5초
 
-#define PICTURE_CHANGE_MSECOND 100	//화면 그림이 바뀌는 밀리초 : 100ms
+#define LEVELUP_TIME 10000	//자동 레벨업 밀리초 / 1000ms == 1초
 
-char word[WORD_MAXLEN] = { 0, };
+#define PICTURE_CHANGE_MSECOND 100	//화면 그림이 바뀌는 밀리초 / 100ms
+
+char word[WORD_MAXLEN] = { 0, };  //단어가 저장될 
 
 char ch;
+
 
 int selectCharacterNum;	//몇 번 캐릭터 선택했는지
 char C1[17][25] = {
@@ -173,6 +175,7 @@ void selectWord(int level, char* word) {	//enWords.txt에서 난이도별로 렌
 	fclose(fp);
 }
 
+
 void typingGame(int* level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : 상
 	int obstacleX = OBSTACLE_START_X;
 	bool leg = true;
@@ -219,7 +222,6 @@ redraw:
 		//일정 시간동안 게임오버 안 되면 난이도 상승!
 		if (*level <= 2) {
 			end = clock(NULL);
-
 			if (end - start >= LEVELUP_TIME) {
 				(*level) += 1;
 				speed_level = *level;
