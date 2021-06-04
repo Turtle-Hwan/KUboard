@@ -17,6 +17,10 @@
 void itemExplainMenu(); // *******************이 부분 추가 menu.c에서 사용 *********************
 void ITEM();
 
+typedef struct {
+	int score;
+	char name[4];
+}user;
 
 void gotoxy(int x, int y);	//timeHeart.c에 정의, 온갖곳에서 사용
 
