@@ -6,7 +6,7 @@ void consoleInfo() {	// 콘솔 창 제목과 크기 정하기
 }
 
 int main() {
-	// SetConsoleOutputCP(949); // 혹시 콘솔 글씨가 깨진다면
+	// SetConsoleOutputCP(949); // 혹시 콘솔 한글 글씨가 깨진다면 실행할 구문
 	consoleInfo();
 	mainMenu();
 
