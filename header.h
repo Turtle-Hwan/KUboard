@@ -7,25 +7,27 @@
 #include <mmsystem.h>
 #pragma comment(lib,"winmm.lib")
 
-//consoleInfoÀÇ °¡·Î, ¼¼·Î
+//consoleInfoì˜ ê°€ë¡œ, ì„¸ë¡œ
 #define CONSOLE_X 150
 #define CONSOLE_Y 50
 
-//¿µ´Ü¾î ÃÖ´ë ±æÀÌ
+//ì˜ë‹¨ì–´ ìµœëŒ€ ê¸¸ì´
 #define WORD_MAXLEN 30
 
+void itemExplain(); // *******************ì´ ë¶€ë¶„ ì¶”ê°€ menu.cì—ì„œ ì‚¬ìš© *********************
 
-void gotoxy(int x, int y);	//timeHeart.c¿¡ Á¤ÀÇ, ¿Â°®°÷¿¡¼­ »ç¿ë
-//void consoleInfo();			//typingGame.c¿¡ Á¤ÀÇ, main() ¿¡¼­ »ç¿ë
+void gotoxy(int x, int y);	//timeHeart.cì— ì •ì˜, ì˜¨ê°–ê³³ì—ì„œ ì‚¬ìš©
+//void consoleInfo();			//typingGame.cì— ì •ì˜, main() ì—ì„œ ì‚¬ìš©
 
-void mainMenu();			//menu.c¿¡ Á¤ÀÇ, main() ¿¡¼­ »ç¿ë
+void mainMenu();			//menu.cì— ì •ì˜, main() ì—ì„œ ì‚¬ìš©
 
-void checkRanking(char ranking[][12]);	//rank.c¿¡ Á¤ÀÇ, menu.c -> rankingMenu() ¿¡¼­ »ç¿ë
-
-
-
-void typingGame(int level); //typingGame.c¿¡ Á¤ÀÇ, menu -> selectLevelMenu() ¿¡¼­ »ç¿ë
-void drawHeart(int* i, int level); //timeHeart.c Á¤ÀÇ , typingGame()¿¡ »ç¿ë
+void checkRanking(char ranking[][12]);	//rank.cì— ì •ì˜, menu.c -> rankingMenu() ì—ì„œ ì‚¬ìš©
 
 
-// ¿µ´Ü¾î´Â ¶ç¾î¾²±â Æ÷ÇÔµÊ || ³­ÀÌµµ ÇÏ : 6ÀÚ¸® ±îÁö (947Çà±îÁö) || ³­ÀÌµµ Áß : 7~9ÀÚ¸® (2075Çà±îÁö) || ³­ÀÌµµ »ó : (2940Çà±îÁö)
+
+void typingGame(int level); //typingGame.cì— ì •ì˜, menu -> selectLevelMenu() ì—ì„œ ì‚¬ìš©
+void drawHeart(int* i, int level); //timeHeart.c ì •ì˜ , typingGame()ì— ì‚¬ìš©
+
+
+// ì˜ë‹¨ì–´ëŠ” ë„ì–´ì“°ê¸° í¬í•¨ë¨ || ë‚œì´ë„ í•˜ : 6ìžë¦¬ ê¹Œì§€ (947í–‰ê¹Œì§€) || ë‚œì´ë„ ì¤‘ : 7~9ìžë¦¬ (2075í–‰ê¹Œì§€) || ë‚œì´ë„ ìƒ : (2940í–‰ê¹Œì§€)
+
