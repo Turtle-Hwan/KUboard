@@ -2,10 +2,7 @@
 
 #define MAX 30
 #define MAX_RANK 5   //랭킹 출력 횟수 매크로
-typedef struct {
-	int score;
-	char name[4];
-}user;
+
 
 int getTotalLine(const char* name) {
 	FILE* fp;
