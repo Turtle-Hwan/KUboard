@@ -2,30 +2,59 @@
 
 #define MAX 30
 
+typedef struct {
+	int score;
+	char name[3];
+}user;
+
+int getTotalLine(const char* name) {
+	FILE* fp;
+	int line = 0;
+	char c;
+	fp = fopen(name, "r");
+	while ((c = fgetc(fp)) != EOF)
+		if (c == '\n') line++;
+	fclose(fp);
+	return line; 
+}
+
 bool correct(const char* que) {
 
 	char arr[MAX];
 	gets_s(arr, MAX);
 	int a = strcmp(que, arr);
 	if (a == 0) {
-		return 1; // µÎ¹®ÀÚ°¡ ÀÏÄ¡ÇÒ ¶§
+		return 1; // ë‘ë¬¸ìê°€ ì¼ì¹˜í•  ë•Œ
 	}
 	else {
 		return 0;
 	}
 }
 
-void saveRanking(const char* name, const int score) { // ÀúÀå ¾ç½Ä KIM 000150
-	FILE* fp = fopen("ranking.txt", "a");
-	fprintf(fp, "%3c %06d", name[0], score);
-	fputs("\n", fp);
-
-
-	// ¼øÀ§¿¡ ¸ÂÃß¾î Á¤·ÄÇÏ´Â ºÎºĞ Ãß°¡
+void sorting(const char* text, int count) {
+	FILE* fp = fopen(text, "a");
+	fseek(fp, 0, SEEK_END);
+	int rank_length = ftell(fp);
+	char* wt = (char*)malloc(sizeof(char) * rank_length);
+	user* u = (user*)malloc(sizeof(user) * count);
+	while (!feof(fp)) {
+		int i = 0;
+		fgets(wt, 10, fp); // ë¶€ë¶„ ë¯¸ì™„ì„±
+	}
 	fclose(fp);
 }
 
-void checkRanking(char ranking[][12]) { //·©Å· ÀúÀåµÉ ¹è¿­ (10À§±îÁö ÀúÀå)
+void saveRanking(const char* name, const int score) { // ì €ì¥ ì–‘ì‹ KIM 000150
+	FILE* fp = fopen("ranking.txt", "a");
+	fprintf(fp, "%3s %6d", name, score);
+	fputs("\n", fp);
+	fclose(fp);
+	int count = getTotalLine("ranking.txt");
+	printf("%d", count);
+	sorting("ranking.txt", count);
+}
+
+void checkRanking(char ranking[][12]) { //ë­í‚¹ ì €ì¥ë  ë°°ì—´ (10ìœ„ê¹Œì§€ ì €ì¥)
 	FILE* fp;
 	fp = fopen("ranking.txt", "a+");
 	

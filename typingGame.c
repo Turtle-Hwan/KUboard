@@ -1,4 +1,4 @@
-﻿#include "header.h"
+#include "header.h"
 
 #define GROUND_Y CHARACTER_Y+14
 
@@ -8,10 +8,14 @@
 #define CHARACTER_Y 19
 #define CHARACTER_X 17
 
-#define LEVELUP_TIME 5000	//자동 레벨업 밀리초 : 5000ms == 5초
 
-#define PICTURE_CHANGE_MSECOND 100	//화면 그림이 바뀌는 밀리초 : 100ms
+#define LEVELUP_TIME 10000	//자동 레벨업 밀리초 / 1000ms == 1초
 
+#define PICTURE_CHANGE_MSECOND 100	//화면 그림이 바뀌는 밀리초 / 100ms
+
+char word[WORD_MAXLEN] = { 0, };  //단어가 저장될 
+
+char ch;
 
 
 int selectCharacterNum;	//몇 번 캐릭터 선택했는지
@@ -92,11 +96,11 @@ void drawGround(int groundY) {
 	gotoxy(0, groundY);
 
 	for (int i = 0; i < CONSOLE_X; i++) {
-		printf("=");
+		color("=",10);
 	}
 	printf("\n");
 	for (int i = 0; i < CONSOLE_X; i++) {
-		printf("=");
+		color("=",10);
 	}
 }
 
@@ -171,29 +175,33 @@ void selectWord(int level, char* word) {	//enWords.txt에서 난이도별로 렌
 	fclose(fp);
 }
 
-void typingGame(int *level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : 상
-	int obstacleX = OBSTACLE_START_X;	
+
+void typingGame(int* level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : 상
+	int obstacleX = OBSTACLE_START_X;
 	bool leg = true;
+	srand(time(0));
 
 	int speed_level = *level;	//레벨에 따른 장애물 이동 속도
 
 	int crashNum = 0;				//장애물과 충돌했을 때 중가시킬 변수
 	int* crashNumP = &crashNum;
-
-	int score = 0;			//점수
+	int score = 0;		//점수
 
 	char inputWord[WORD_MAXLEN] = { 0, };	//사용자 입력받은 문자열 저장
 	int idx = 0;							//사용자 입력받은 문자열 index
-	
-	char word[WORD_MAXLEN] = { 0, };
+
 	selectWord(*level, word);
 
+	int item_score = 100;
+
 redraw:
-	system("cls"); 
+	system("cls");
 	drawHeart(crashNumP, *level);
 	drawScore(score);
-	drawGround(GROUND_Y);	
+	drawGround(GROUND_Y);
 	drawWord(word);
+
+	ITEM();
 
 	for (int i = 0; i < WORD_MAXLEN; i++) { //단어 입력하는 곳 표시 || 단어 입력하는 곳 좌표 : gotoxy(65, 40);
 		gotoxy(65 + i, 41);
@@ -207,7 +215,7 @@ redraw:
 	clock_t loop_start, loop_end, start, end;
 	start = clock(NULL);		//level 자동 상승에 사용할 시간 값.
 	loop_start = clock(NULL);	//while 돌 때마다 밀리초 처음 값 저장
-	
+
 	while (1) {
 		loop_end = clock(NULL);	//while 돌 때마다 밀리초 나중 값 저장	//loop_start와 비교 후 100ms마다 장애물 이동
 
@@ -243,7 +251,7 @@ redraw:
 		}
 
 		//캐릭터랑 충돌했을 때 처리 / 하트 감소, 새로운 단어 출력
-		if (obstacleX <= CHARACTER_X) {	
+		if (obstacleX <= CHARACTER_X) {
 			clearObstacle(CHARACTER_X + 1, OBSTACLE_Y);
 			obstacleX = OBSTACLE_START_X;
 			crashNum += 1;
@@ -253,21 +261,99 @@ redraw:
 			drawWord(word);
 		}
 
+		if (score >= item_score) // 아이템
+		{
+			int ran;
+			int item_num = 0; // 아이템 사용 제한
+			int i = 0;
 
+			ran = rand() % 3;
+
+			gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+			printf("●");
+
+			if (item_num == 0)
+				item_num++;
+
+			if (item_num == 1)
+			{
+				if (_kbhit())
+				{
+					ch = _getch();
+					if (ch == 49)
+					{
+						if (ran == 0)
+								{
+									selectWord(*level, word);
+									drawWord(word);
+
+									clearObstacle(obstacleX + speed_level, OBSTACLE_Y);
+									obstacleX = OBSTACLE_START_X;
+
+									gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+									printf("○");
+
+									gotoxy(65, 40);
+									if (item_num == 1)
+										item_num--;
+									item_score += 100;
+								} // 스킵권
+						else if (ran == 1)
+								{
+									Sleep(2000);
+
+									gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+									printf("○");
+
+									gotoxy(65, 40);
+									if (item_num == 1)
+										item_num--;
+									item_score += 100;
+								} // 속도 느리게 하기
+						else
+						{
+							system("cls");
+							Sleep(5);
+							drawGround(GROUND_Y);
+							ITEM();
+							drawHeart(crashNumP, *level);
+							drawScore(score);
+
+							gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+							printf("○");
+
+							gotoxy(65, 40);
+							if (item_num == 1)
+								item_num--;
+							item_score += 100;
+						} // 
+					}
+					else
+					{
+						goto a;
+					}
+				}
+
+			}
+
+	
+		}
 		//문자열 입력받아 inputWord[]에 저장
-		if (_kbhit()) {		
-			char ch = _getch();
+		if (_kbhit()) {
+			//char ch = _getch();
+			ch = _getch();
+		a:
 			if (ch == 13) {				//엔터
-				//일치하는지 판단 & 점수 증가
+			//일치하는지 판단 & 점수 증가
 				if (!strcmp(word, inputWord)) {	// 같을 때  //strcmp : 같으면 0 반환
 					score += 10 * (*level);
-					drawScore(score);	//score 반영						
+					drawScore(score);	//score 반영	 
 					selectWord(*level, word);	//새 단어 선택   || 제일 긴 단어 테스트 /strcpy(word, "artificial neural network\0");
 					drawWord(word);
 
 					//장애물 맨 뒤로 보내기
 					clearObstacle(obstacleX + speed_level, OBSTACLE_Y);
-					obstacleX = OBSTACLE_START_X;		
+					obstacleX = OBSTACLE_START_X;
 				}
 				gotoxy(65, 40);
 				printf("                             ");
@@ -297,7 +383,7 @@ redraw:
 					idx += 1;
 				}
 				else {
-					inputWord[idx-1] = ch;
+					inputWord[idx - 1] = ch;
 					gotoxy(65, 40);
 					printf("%s", inputWord);
 					idx = WORD_MAXLEN - 2;
