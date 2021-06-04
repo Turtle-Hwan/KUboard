@@ -6,6 +6,7 @@ void consoleInfo() {	// 콘솔 창 제목과 크기 정하기
 }
 
 int main() {
+	PlaySound(TEXT("bgm.wav"), NULL, SND_ASYNC | SND_LOOP | SND_SYSTEM);
 	consoleInfo();
 	mainMenu();
 

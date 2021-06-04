@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include <conio.h>
 #include <time.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
 
 //consoleInfo의 가로, 세로
 #define CONSOLE_X 150
