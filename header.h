@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include <conio.h>
 #include <time.h>
+#include <mmsystem.h>
+#pragma comment(lib,"winmm.lib")
 
 //consoleInfo의 가로, 세로
 #define CONSOLE_X 150
@@ -28,3 +30,4 @@ void drawHeart(int* i, int level); //timeHeart.c 정의 , typingGame()에 사용
 
 
 // 영단어는 띄어쓰기 포함됨 || 난이도 하 : 6자리 까지 (947행까지) || 난이도 중 : 7~9자리 (2075행까지) || 난이도 상 : (2940행까지)
+
