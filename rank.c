@@ -1,10 +1,10 @@
 #include "header.h"
 
 #define MAX 30
-
+#define MAX_RANK 5   //ë­í‚¹ ì¶œë ¥ íšŸìˆ˜ ë§¤í¬ë¡œ
 typedef struct {
 	int score;
-	char name[3];
+	char name[4];
 }user;
 
 int getTotalLine(const char* name) {
@@ -24,37 +24,50 @@ bool correct(const char* que) {
 	gets_s(arr, MAX);
 	int a = strcmp(que, arr);
 	if (a == 0) {
-		return 1; // µÎ¹®ÀÚ°¡ ÀÏÄ¡ÇÒ ¶§
+		return 1; // ë‘ë¬¸ìê°€ ì¼ì¹˜í•  ë•Œ
 	}
 	else {
 		return 0;
 	}
 }
 
-void sorting(const char* text, int count) {
-	FILE* fp = fopen(text, "a");
-	fseek(fp, 0, SEEK_END);
-	int rank_length = ftell(fp);
-	char* wt = (char*)malloc(sizeof(char) * rank_length);
+void sorting() {
+	int count = getTotalLine("ranking.txt");
 	user* u = (user*)malloc(sizeof(user) * count);
-	while (!feof(fp)) {
-		int i = 0;
-		fgets(wt, 10, fp); // ºÎºĞ ¹Ì¿Ï¼º
+	FILE* fp = fopen("ranking.txt", "rt");
+	for (int i = 0; i < count; i++) {
+		fscanf(fp, "%s %d", u[i].name, &u[i].score);
+	}
+
+	user temp;
+	for (int i = 0; i < count - 1; i++) {
+		for (int j = 1; j < count - i; j++) {
+			if (u[j - 1].score < u[j].score) {
+				for (int k = 0; k < 3; k++) {
+					temp.name[k] = u[j - 1].name[k];
+					u[j - 1].name[k] = u[j].name[k];
+					u[j].name[k] = temp.name[k];
+				}
+				temp.score = u[j - 1].score;
+				u[j - 1].score = u[j].score;
+				u[j].score = temp.score;
+			}
+		}
+	}
+	for (int i = 0; i < MAX_RANK; i++) {
+		printf("%dìœ„ %s: %dì \n", i+1, u[i].name, u[i].score);
 	}
 	fclose(fp);
 }
 
-void saveRanking(const char* name, const int score) { // ÀúÀå ¾ç½Ä KIM 000150
+void saveRanking(const char* name, const int score) { // ì €ì¥ ì–‘ì‹ KIM 000150
 	FILE* fp = fopen("ranking.txt", "a");
 	fprintf(fp, "%3s %6d", name, score);
 	fputs("\n", fp);
 	fclose(fp);
-	int count = getTotalLine("ranking.txt");
-	printf("%d", count);
-	sorting("ranking.txt", count);
 }
 
-void checkRanking(char ranking[][12]) { //·©Å· ÀúÀåµÉ ¹è¿­ (10À§±îÁö ÀúÀå)
+void checkRanking(char ranking[][12]) { //ë­í‚¹ ì €ì¥ë  ë°°ì—´ (10ìœ„ê¹Œì§€ ì €ì¥)
 	FILE* fp;
 	fp = fopen("ranking.txt", "a+");
 	
