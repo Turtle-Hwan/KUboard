@@ -267,7 +267,7 @@ start:
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 7)
 				{
-					itemExplain();
+					itemExplainMenu();
 					goto start;
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	//메뉴 3: 게임 종료

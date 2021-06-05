@@ -1,13 +1,13 @@
 #include "header.h"
 int level=0;
 
-// ë ˆë²¨ 1 : í•˜  / ë ˆë²¨ 2 : ì¤‘ / ë ˆë²¨ 3 : ìƒ
+// ·¹º§ 1 : ÇÏ  / ·¹º§ 2 : Áß / ·¹º§ 3 : »ó
 
 void gotoxy(int x, int y)
 {
 	COORD Pos = { x,y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
-}  // ì½˜ì†”ì°½ ì´ë™ // ì½˜ì†”ì°½ ì´ë™
+}  // ÄÜ¼ÖÃ¢ ÀÌµ¿ // ÄÜ¼ÖÃ¢ ÀÌµ¿
 
 //void Time(int Time)
 //{
@@ -58,77 +58,78 @@ void gotoxy(int x, int y)
 //	}
 //	else
 //		mainMenu();
-//}  // ì‹œê°„ íƒ€ì´ë¨¸  // ì‹œê°„ íƒ€ì´ë¨¸
+//}  // ½Ã°£ Å¸ÀÌ¸Ó  // ½Ã°£ Å¸ÀÌ¸Ó
 
 
-void color(char text[], int i) // *************ìƒ‰ ì¶”ê°€*******************
+void color(char text[], int i) // *************»ö Ãß°¡*******************
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), i);
 	printf(text);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 }
 
-//void drawHeart(int* i, int level) {  //typingGame()ì—ì„œ ë¶€ë”ªíž ë•Œë§ˆë‹¤ i ì¤‘ê°€, levelì— ë”°ë¥¸ í•˜íŠ¸ ê°œìˆ˜ ì¶”ê°€
-//
-//	if (*i == 0) {
-//		gotoxy(10, 4); 
-//		color("â™¥ â™¥ â™¥ â™¥ â™¥", 4);
-//	}
-//	else if (*i == 1)
-//	{
-//		gotoxy(10, 4);
-//		color("â™¥ â™¥ â™¥ â™¥ â™¡", 4);
-//	}
-//	else if (*i == 2)
-//	{
-//		gotoxy(10, 4);
-//		color("â™¥ â™¥ â™¥ â™¡ â™¡", 4);
-//	}
-//	else if (*i == 3)
-//	{
-//		gotoxy(10, 4);
-//		color("â™¥ â™¥ â™¡ â™¡ â™¡", 4);
-//	}
-//	else if (*i == 4)
-//	{
-//		gotoxy(10, 4);
-//		color("â™¥ â™¡ â™¡ â™¡ â™¡", 4);
-//	}
-//	else
-//	{
-//		gotoxy(10, 4);
-//		color("â™¡ â™¡ â™¡ â™¡ â™¡", 4);
-//
-//		int c, retryMenu = CONSOLE_Y / 2 - 3; //í˜„ìž¬ ì»¤ì„œê°€ ê°€ë¦¬í‚¤ëŠ” ë©”ë‰´ì˜ yì¢Œí‘œ ì¶”ê°€ ê°’.
-//		int* retry = &retryMenu;
-//		b:
-//		system("cls");
-//		gameOverMenu();
-//		gotoxy(CONSOLE_X / 2 - 10, CONSOLE_Y / 2 - 5);
-//		printf("ëŒì•„ê°€ì‹œê² ìŠµë‹ˆê¹Œ?");
-//		gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 3);
-//		printf("Yes");
-//		gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 1);
-//		printf("No");
-//
-//		gotoxy(CONSOLE_X / 2 - 6, CONSOLE_Y / 2 - 3);
-//		printf("â–¶");
-//		while (1) {
-//			if (_kbhit()) {
-//				c = _getch();
-//				if (c == 224) {
-//					keySelectBtn(retry, 2, CONSOLE_X / 2 - 6, CONSOLE_Y / 2 - 3, 2);
-//				}
-//				else if (c == 13) {	//ì—”í„° í‚¤ ëˆŒë ¸ì„ ë•Œ
-//					if (retryMenu == CONSOLE_Y / 2 - 3) {	//ë‚œì´ë„ ìƒ
-//						mainMenu();
-//					}
-//					else if (retryMenu == CONSOLE_Y / 2 - 1) {	//ë‚œì´ë„ ì¤‘
-//						goto b;
-//					}
-//				}
-//			}
-//		}
-//		
-//	}
-//}   // ìƒëª…ë ¥   // Heart("ë¬¸ìžì—´") -> ë¬¸ìžì—´ì´ëž‘ ë‹¤ë¥¼ ì‹œ í•˜íŠ¸ ê¹ìž„
+void drawHeart(int* i, int level) {  //typinggame()¿¡¼­ ºÎµúÈú ¶§¸¶´Ù i Áß°¡, level¿¡ µû¸¥ ÇÏÆ® °³¼ö Ãß°¡
+
+	if (*i == 0) {
+		gotoxy(10, 4); 
+		color("¢¾ ¢¾ ¢¾ ¢¾ ¢¾", 4);
+	}
+	else if (*i == 1)
+	{
+		gotoxy(10, 4);
+		color("¢¾ ¢¾ ¢¾ ¢¾ ¢½", 4);
+	}
+	else if (*i == 2)
+	{
+		gotoxy(10, 4);
+		color("¢¾ ¢¾ ¢¾ ¢½ ¢½", 4);
+	}
+	else if (*i == 3)
+	{
+		gotoxy(10, 4);
+		color("¢¾ ¢¾ ¢½ ¢½ ¢½", 4);
+	}
+	else if (*i == 4)
+	{
+		gotoxy(10, 4);
+		color("¢¾ ¢½ ¢½ ¢½ ¢½", 4);
+	}
+	else
+	{
+		gotoxy(10, 4);
+		color("¢½ ¢½ ¢½ ¢½ ¢½", 4);
+
+
+		int c, retrymenu = CONSOLE_Y / 2 - 3; //ÇöÀç Ä¿¼­°¡ °¡¸®Å°´Â ¸Þ´ºÀÇ yÁÂÇ¥ Ãß°¡ °ª.
+		int* retry = &retrymenu;
+		b:
+		system("cls");
+		gameOverMenu();
+		gotoxy(CONSOLE_X / 2 - 10, CONSOLE_Y / 2 - 5);
+		printf("µ¹¾Æ°¡½Ã°Ú½À´Ï±î?");
+		gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 3);
+		printf("yes");
+		gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 1);
+		printf("no");
+
+		gotoxy(CONSOLE_X / 2 - 6, CONSOLE_Y / 2 - 3);
+		printf("¢º");
+		while (1) {
+			if (_kbhit()) {
+				c = _getch();
+				if (c == 224) {
+					keySelectBtn(retry, 2, CONSOLE_X / 2 - 6, CONSOLE_Y / 2 - 3, 2);
+				}
+				else if (c == 13) {	//¿£ÅÍ Å° ´­·ÈÀ» ¶§
+					if (retrymenu == CONSOLE_Y / 2 - 3) {	//³­ÀÌµµ »ó
+						mainMenu();
+					}
+					else if (retrymenu == CONSOLE_Y / 2 - 1) {	//³­ÀÌµµ Áß
+						goto b;
+					}
+				}
+			}
+		}
+		
+	}
+}   // »ý¸í·Â   // heart("¹®ÀÚ¿­") -> ¹®ÀÚ¿­ÀÌ¶û ´Ù¸¦ ½Ã ÇÏÆ® ±ïÀÓ

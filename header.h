@@ -17,7 +17,7 @@
 void itemExplainMenu(); // *******************이 부분 추가 menu.c에서 사용 *********************
 void ITEM();
 
-typedef struct {
+typedef struct {		//ranking 저장에 필요한 구조체
 	int score;
 	char name[4];
 }user;

@@ -283,41 +283,10 @@ redraw:
 					if (ch == 49)
 					{
 						if (ran == 0)
-								{
-									selectWord(*level, word);
-									drawWord(word);
-
-									clearObstacle(obstacleX + speed_level, OBSTACLE_Y);
-									obstacleX = OBSTACLE_START_X;
-
-									gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
-									printf("○");
-
-									gotoxy(65, 40);
-									if (item_num == 1)
-										item_num--;
-									item_score += 100;
-								} // 스킵권
-						else if (ran == 1)
-								{
-									Sleep(2000);
-
-									gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
-									printf("○");
-
-									gotoxy(65, 40);
-									if (item_num == 1)
-										item_num--;
-									item_score += 100;
-								} // 속도 느리게 하기
-						else
 						{
-							system("cls");
-							Sleep(5);
-							drawGround(GROUND_Y);
-							ITEM();
-							drawHeart(crashNumP, *level);
-							drawScore(score);
+
+							clearObstacle(obstacleX + speed_level, OBSTACLE_Y);
+							obstacleX = OBSTACLE_START_X;
 
 							gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
 							printf("○");
@@ -326,7 +295,43 @@ redraw:
 							if (item_num == 1)
 								item_num--;
 							item_score += 100;
-						} // 
+						} // 스킵권	: 장애물 초기화
+						else if (ran == 1)
+						{
+							Sleep(2000);
+
+							gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+							printf("○");
+
+							gotoxy(65, 40);
+							if (item_num == 1)
+								item_num--;
+							item_score += 100;
+						} // 속도 느리게 하기 : 2초간 정지
+						else
+						{
+							gotoxy(65, 40);
+							if (item_num == 1)
+								item_num--;
+							item_score += 100;
+
+							//system("cls");
+							//Sleep(5);	
+							//drawGround(GROUND_Y);
+							//ITEM();
+							//drawHeart(crashNumP, *level);
+							//drawScore(score);
+
+							//gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+							//printf("○");
+
+							gotoxy(65, 12);
+							printf("                              ");
+							Sleep(1000);
+
+							drawWord(word);
+							//goto redraw;
+						} // 디버프 : 단어 가려짐
 					}
 					else
 					{
