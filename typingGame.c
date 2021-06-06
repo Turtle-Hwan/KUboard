@@ -265,7 +265,7 @@ redraw:
 			int item_num = 0; // 아이템 사용 제한
 			int i = 0;
 
-			ran = rand() % 3;
+			ran = rand() % 4;
 
 			gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
 			printf("●");
@@ -306,15 +306,15 @@ redraw:
 								item_num--;
 							item_score += 100;
 						} // 속도 느리게 하기 : 2초간 정지
-						else
+						else if (ran == 2)
 						{
+							gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+							printf("○");
+							
 							gotoxy(65, 40);
 							if (item_num == 1)
 								item_num--;
 							item_score += 100;
-
-							gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
-							printf("○");
 
 							//system("cls");
 							//Sleep(5);	
@@ -330,6 +330,18 @@ redraw:
 							drawWord(word);
 							//goto redraw;
 						} // 디버프 : 단어 가려짐
+						else if (ran == 3) {
+							crashNum -= 1;			// 하트 증가
+							drawHeart(crashNumP, *level);
+
+							gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+							printf("○");
+
+							gotoxy(65, 40);
+							if (item_num == 1)
+								item_num--;
+							item_score += 100;
+						}
 					}
 					else
 					{
