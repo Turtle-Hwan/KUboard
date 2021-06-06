@@ -168,6 +168,7 @@ void gameOverMenu() {
 			if (ch == 13) {				//엔터
 				if (strlen(name) == 3) {	//이름 3자가 들어간 경우에만 ranking 저장
 					saveRanking(name, score);
+					score = 0;
 					mainMenu();
 				}
 				else {
@@ -269,6 +270,7 @@ void pauseMenu(int* menu) {	// 게임 도중 esc 키 눌렀을 때 일시정지 화면
 				}
 				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	// 2. 메인 화면으로 가기
 					*menu = 2;
+					score = 0; //점수 초기화
 					break;
 				}
 			}

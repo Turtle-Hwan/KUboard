@@ -199,7 +199,6 @@ redraw:
 	drawScore(score);
 	drawGround(GROUND_Y);
 	drawWord(word);
-
 	ITEM();
 
 	for (int i = 0; i < WORD_MAXLEN; i++) { //단어 입력하는 곳 표시 || 단어 입력하는 곳 좌표 : gotoxy(65, 40);
@@ -314,15 +313,15 @@ redraw:
 								item_num--;
 							item_score += 100;
 
+							gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+							printf("○");
+
 							//system("cls");
 							//Sleep(5);	
 							//drawGround(GROUND_Y);
 							//ITEM();
 							//drawHeart(crashNumP, *level);
 							//drawScore(score);
-
-							//gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
-							//printf("○");
 
 							gotoxy(65, 12);
 							printf("                              ");
