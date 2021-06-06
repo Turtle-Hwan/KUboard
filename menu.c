@@ -135,7 +135,7 @@ void selectCharacterMenu() {
 	}
 }
 
-
+extern score;
 void gameOverMenu() {
 	system("cls");
 	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 17);
@@ -146,8 +146,63 @@ void gameOverMenu() {
 	printf("****************************************\n");
 
 	//점수 띄워주기
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11);
+	printf("    당신의 점수는 %6d점 입니다.    ", score);
 	//이름 입력받기
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 9);
+	printf("    당신의 이름을 입력해 주세요       ");
+	gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 7);
+	printf("___");
 
+	gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 3);
+	printf("     메인 메뉴로 돌아가시겠습니까?      \n");
+	gotoxy(CONSOLE_X / 2 - 6, CONSOLE_Y / 2 - 1);
+	printf("▶  YES");
+
+	char name[4] = { 0, };
+	char ch;
+	int idx = 0;
+	while (1) {
+		if (_kbhit()) {
+			ch = _getch();
+			if (ch == 13) {				//엔터
+				if (strlen(name) == 3) {	//이름 3자가 들어간 경우에만 ranking 저장
+					saveRanking(name, score);
+					mainMenu();
+				}
+				else {
+					gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 6);
+					printf("    닉네임을 올바르게 입력해 주세요      ");
+				}
+			}
+			else if (ch == 8) {		//백스페이스
+				if (idx > 0) {
+					idx -= 1;
+					name[idx] = '_';
+					gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 7);
+					printf("%s", name);
+				}
+				else {
+					gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 7);
+					printf("%s", name);
+					name[idx] = '_';
+				}
+			}
+			else if ((97 <= ch && ch <= 122) || (65 <= ch && ch <= 90)) {
+				if (idx < 3) {
+					name[idx] = ch;
+					gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 7);
+					printf("%s", name);
+					idx += 1;
+				}
+				else {
+					name[idx - 1] = ch;
+					gotoxy(CONSOLE_X / 2 - 3, CONSOLE_Y / 2 - 7);
+					printf("%s", name);
+				}
+			}
+		}
+	}
 }
 
 void rankingMenu() {
@@ -165,7 +220,7 @@ void rankingMenu() {
 	for (int i = 0; i < 10; i++) {
 		gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11 + i * 2);
 		if (strlen(rank[i]) != 0) {
-			printf("***            %s            ***", rank[i]);
+			printf("***  %d위        %s          ***",i+1, rank[i]);
 		}
 		else {
 			printf("***                                  ***\n");
@@ -220,7 +275,6 @@ void pauseMenu(int* menu) {	// 게임 도중 esc 키 눌렀을 때 일시정지 화면
 		}
 	}
 }
-
 
 
 

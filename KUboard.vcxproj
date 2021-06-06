@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="gameOver.c" />
     <ClCompile Include="item.c" />
     <ClCompile Include="timeHeart.c" />
     <ClCompile Include="main.c" />
@@ -151,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="enWords.txt" />
+    <Text Include="ranking.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

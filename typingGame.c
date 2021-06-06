@@ -13,10 +13,10 @@
 
 #define PICTURE_CHANGE_MSECOND 100	//화면 그림이 바뀌는 밀리초 / 100ms
 
-char word[WORD_MAXLEN] = { 0, };  //단어가 저장될 
+char word[WORD_MAXLEN] = { 0, };  //단어가 저장될 문자열 배열
+char ch;	//_getch()로 키입력 받아서 저장할 변수
 
-char ch;
-
+int score = 0;		// 게임 점수
 
 int selectCharacterNum;	//몇 번 캐릭터 선택했는지
 char C1[17][25] = {
@@ -167,25 +167,24 @@ void selectWord(int level, char* word) {	//enWords.txt에서 난이도별로 렌
 			fgets(word, WORD_MAXLEN - 2, fp);
 			word[strlen(word) - 1] = '\0';
 		}
+		fclose(fp);
 	}
 	else {
 		system("cls");
 		printf("enWords.txt 파일이 없습니다.");
 	}
-	fclose(fp);
 }
 
 
 void typingGame(int* level) { // 레벨 1 : 하  / 레벨 2 : 중 / 레벨 3 : 상
 	int obstacleX = OBSTACLE_START_X;
 	bool leg = true;
-	srand(time(0));
+	srand((unsigned)time(0));
 
 	int speed_level = *level;	//레벨에 따른 장애물 이동 속도
 
 	int crashNum = 0;				//장애물과 충돌했을 때 중가시킬 변수
 	int* crashNumP = &crashNum;
-	int score = 0;		//점수
 
 	char inputWord[WORD_MAXLEN] = { 0, };	//사용자 입력받은 문자열 저장
 	int idx = 0;							//사용자 입력받은 문자열 index
@@ -261,7 +260,7 @@ redraw:
 			drawWord(word);
 		}
 
-		if (score >= item_score) // 아이템
+		if (score >= item_score) // 아이템 점수 조건
 		{
 			int ran;
 			int item_num = 0; // 아이템 사용 제한
@@ -343,6 +342,7 @@ redraw:
 
 	
 		}
+
 		//문자열 입력받아 inputWord[]에 저장
 		if (_kbhit()) {
 			//char ch = _getch();

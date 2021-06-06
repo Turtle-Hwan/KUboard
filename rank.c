@@ -1,7 +1,7 @@
 #include "header.h"
 
 #define MAX 30
-#define MAX_RANK 5   //ë­í‚¹ ì¶œë ¥ íšŸìˆ˜ ë§¤í¬ë¡œ
+#define MAX_RANK 5   //·©Å· Ãâ·Â È½¼ö ¸ÅÅ©·Î
 
 
 int getTotalLine(const char* name) {
@@ -10,9 +10,10 @@ int getTotalLine(const char* name) {
 	char c;
 	fp = fopen(name, "r");
 	while ((c = fgetc(fp)) != EOF)
-		if (c == '\n') line++;
+		if (c == '\n') 
+			line++;
 	fclose(fp);
-	return line; 
+	return line;
 }
 
 bool correct(const char* que) {
@@ -21,57 +22,79 @@ bool correct(const char* que) {
 	gets_s(arr, MAX);
 	int a = strcmp(que, arr);
 	if (a == 0) {
-		return 1; // ë‘ë¬¸ìê°€ ì¼ì¹˜í•  ë•Œ
+		return 1; // µÎ¹®ÀÚ°¡ ÀÏÄ¡ÇÒ ¶§
 	}
 	else {
 		return 0;
 	}
 }
 
+typedef struct {		//ranking ÀúÀå¿¡ ÇÊ¿äÇÑ ±¸Á¶Ã¼
+	int score;
+	char name[4];
+}user;
+
 void sorting() {
 	int count = getTotalLine("ranking.txt");
-	user* u = (user*)malloc(sizeof(user) * count);
-	FILE* fp = fopen("ranking.txt", "rt");
-	for (int i = 0; i < count; i++) {
-		fscanf(fp, "%s %d", u[i].name, &u[i].score);
-	}
+	FILE* fp = fopen("ranking.txt", "r+");
 
-	user temp;
-	for (int i = 0; i < count - 1; i++) {
-		for (int j = 1; j < count - i; j++) {
-			if (u[j - 1].score < u[j].score) {
-				for (int k = 0; k < 3; k++) {
-					temp.name[k] = u[j - 1].name[k];
-					u[j - 1].name[k] = u[j].name[k];
-					u[j].name[k] = temp.name[k];
+	int size = sizeof(user) * count;
+	user *u = (user *)malloc(size);
+
+	if (u != NULL) {
+
+		memset(u, 0, size);	//0À¸·Î ÃÊ±âÈ­
+
+		for (int i = 0; i < count; i++) {
+			fscanf(fp, "%3s %6d", u[i].name, &u[i].score);
+		}
+
+		user temp;
+		for (int i = 0; i < count - 1; i++) {
+			for (int j = 1; j < count - i; j++) {
+				if (u[j - 1].score < u[j].score) {
+					//¹®ÀÚ¿­ Á¤·Ä
+					strcpy(temp.name, u[j - 1].name);
+					strcpy(u[j - 1].name, u[j].name);
+					strcpy(u[j].name, temp.name);
+
+					//½ºÄÚ¾î Á¤·Ä
+					temp.score = u[j - 1].score;
+					u[j - 1].score = u[j].score;
+					u[j].score = temp.score;
 				}
-				temp.score = u[j - 1].score;
-				u[j - 1].score = u[j].score;
-				u[j].score = temp.score;
 			}
 		}
+
+		fclose(fp);
+
+		FILE* fpw = fopen("ranking.txt", "w");
+		fseek(fp, 0, SEEK_SET);
+		for (int i = 0; i < count; i++) {
+			fprintf(fp, "%3s %06d\n", u[i].name, u[i].score);
+		}
+		fclose(fpw);
+		free(u);
 	}
-	for (int i = 0; i < MAX_RANK; i++) {
-		printf("%dìœ„ %s: %dì \n", i+1, u[i].name, u[i].score);
-	}
+}
+
+void saveRanking(const char* name, const int score) { // ÀúÀå ¾ç½Ä KIM 000150
+	FILE* fp = fopen("ranking.txt", "a+");
+	fprintf(fp, "%3s %06d\n", name, score);
+
 	fclose(fp);
 }
 
-void saveRanking(const char* name, const int score) { // ì €ì¥ ì–‘ì‹ KIM 000150
-	FILE* fp = fopen("ranking.txt", "a");
-	fprintf(fp, "%3s %6d", name, score);
-	fputs("\n", fp);
-	fclose(fp);
-}
-
-void checkRanking(char ranking[][12]) { //ë­í‚¹ ì €ì¥ë  ë°°ì—´ (10ìœ„ê¹Œì§€ ì €ì¥)
+void checkRanking(char ranking[][12]) { //·©Å· ÀúÀåµÉ ¹è¿­ (10À§±îÁö ÀúÀå)
 	FILE* fp;
 	fp = fopen("ranking.txt", "a+");
-	
+	sorting();
+
 	for (int i = 0; i < 10; i++) {
 		if (fgets(ranking[i], 11, fp) == NULL) {
 			break;
 		}
+		fgetc(fp);	//fgets´Â \nÀ» µû·Î ÀĞÀ¸¹Ç·Î ÆÄÀÏ Æ÷ÀÎÅÍ ´ÙÀ½ ÇàÀ¸·Î ¿Å°ÜÁÖ±â
 	}
 	fclose(fp);
 }
