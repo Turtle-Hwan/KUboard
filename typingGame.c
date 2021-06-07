@@ -331,16 +331,18 @@ redraw:
 							//goto redraw;
 						} // 디버프 : 단어 가려짐
 						else if (ran == 3) {
-							crashNum -= 1;			// 하트 증가
-							drawHeart(crashNumP, *level);
+							if (crashNum > 0) {
+								crashNum -= 1;			// 하트 증가
+								drawHeart(crashNumP, *level);
 
-							gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
-							printf("○");
+								gotoxy(CONSOLE_X / 2 + 65, CONSOLE_Y / 2 - 15);
+								printf("○");
 
-							gotoxy(65, 40);
-							if (item_num == 1)
-								item_num--;
-							item_score += 100;
+								gotoxy(65, 40);
+								if (item_num == 1)
+									item_num--;
+								item_score += 100;
+							}
 						}
 					}
 					else
