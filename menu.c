@@ -221,7 +221,7 @@ void rankingMenu() {
 	for (int i = 0; i < 10; i++) {
 		gotoxy(CONSOLE_X / 2 - 20, CONSOLE_Y / 2 - 11 + i * 2);
 		if (strlen(rank[i]) != 0) {
-			printf("***  %d위        %s          ***",i+1, rank[i]);
+			printf("***  %2d위        %s          ***",i+1, rank[i]);
 		}
 		else {
 			printf("***                                  ***\n");
@@ -326,8 +326,8 @@ start:
 					itemExplainMenu();
 					goto start;
 				}
-				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	//메뉴 3: 게임 종료
-					break;
+				else if (currentMenuY == CONSOLE_Y / 2 - 5) {	//메뉴 4: 게임 종료
+					exit(0);
 				}
 			}
 		}

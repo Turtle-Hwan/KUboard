@@ -11,7 +11,7 @@
 
 #define LEVELUP_TIME 10000	//자동 레벨업 밀리초 / 1000ms == 1초
 
-#define PICTURE_CHANGE_MSECOND 100	//화면 그림이 바뀌는 밀리초 / 100ms
+#define PICTURE_CHANGE_MSECOND 150	//화면 그림이 바뀌는 밀리초 / 100ms
 
 char word[WORD_MAXLEN] = { 0, };  //단어가 저장될 문자열 배열
 char ch;	//_getch()로 키입력 받아서 저장할 변수
